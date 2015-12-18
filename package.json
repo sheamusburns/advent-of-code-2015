@@ -1,0 +1,16 @@
+{
+  "name": "advent_of_code",
+  "version": "1.0.0",
+  "description": "adventOfCode.com",
+  "main": "day1.js",
+  "dependencies": {
+    "csv": "^0.4.6",
+    "prompt": "^0.2.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sheamusburns",
+  "license": "ISC"
+}
