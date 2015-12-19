@@ -1,32 +1,60 @@
+// part1 && part2//
+
 var input = str(), 
+agents = ['santa', 'roboSanta'],
 origin = [0,0],
-x = origin[0],
-y = origin[1], 
-gifts = [origin.toString()], 
+gifts = [origin.toString()],
 uniqueHouses = 1;
 
-for (char in input) {
-  var dir = input[char];
-  switch (dir) {
-    case 'v':
-      x = origin[0], y = (origin[1]-1);
-      directions(x, y);
-      break;
-    case '^':
-      x = origin[0], y = (origin[1]+1);
-      directions(x, y);
-      break;
-    case '<':
-      x = (origin[0]-1), y = origin[1];
-      directions(x, y);
-      break;
-    case '>':
-      x = (origin[0]+1), y = origin[1];
-      directions(x, y);
-      break;
-   }
+for (agent in agents) {
+    origin = [0,0];
+    x = origin[0],
+    y = origin[1],
+    translatePattern(getDirections(agents[agent], input));
 }
 console.log("unique houses: ", uniqueHouses);
+
+
+function translatePattern(input){
+    for (char in input) {
+      var dir = input[char];
+      switch (dir) {
+        case 'v':
+          x = origin[0], y = (origin[1]-1);
+          directions(x, y);
+          break;
+        case '^':
+          x = origin[0], y = (origin[1]+1);
+          directions(x, y);
+          break;
+        case '<':
+          x = (origin[0]-1), y = origin[1];
+          directions(x, y);
+          break;
+        case '>':
+          x = (origin[0]+1), y = origin[1];
+          directions(x, y);
+          break;
+       }
+    }
+}
+
+
+function getDirections (agent, rawDirections) {
+    var tempStr = '', iter = 0;
+    switch (agent) {
+        case 'santa':
+            iter = 0;
+            break;
+        case 'roboSanta':
+            iter = 1;
+            break;
+    }
+    for (var i = iter; i <rawDirections.length; i += 2) {
+        tempStr += rawDirections[i];
+    }
+    return tempStr;
+}
 
 function directions(x, y){
     origin = [x, y];
