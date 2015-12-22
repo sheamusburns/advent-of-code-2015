@@ -1,7 +1,22 @@
+/*
+* command format:
+* node day4.js <num of zeroes to match> <min for check> <max for check>
+*/
+
 var md5 = require('md5'),
 key = 'iwrupvqb',
+numZeroes = Number(process.argv[2] || 5),
+stringMatch = (function(numZeroes){
+	var tempStr = '';
+	for (var i = 0; i < numZeroes; i++) {
+		tempStr += '0';
+	}
+	return tempStr;
+})(numZeroes);
 min = Number(process.argv[2] || 0),
-max = Number(process.argv[3] || 10000000);
+max = Number(process.argv[3] || 1000000000);
+
+
 
 
 (function mine(md5, key, min, max) {
@@ -26,7 +41,7 @@ max = Number(process.argv[3] || 10000000);
 			chunkStart = chunkArr[c][0];
 			chunkEnd = chunkArr[c][1];
 			for (chunkStart; chunkStart <= chunkEnd; chunkStart++){
-				if (md5(key + chunkStart).substr(0,6)==='000000') {
+				if (md5(key + chunkStart).substr(0,numZeroes)===stringMatch) {
 					console.log("we have a winner:\n%s : %s", chunkStart, md5(key+chunkStart));
 					return chunkStart;
 				}
