@@ -1,7 +1,7 @@
-var md5 = require('md5');
-var key = 'iwrupvqb',
-var min = Number(process.argv[2] || 0),
-var max = Number(process.argv[3] || 10000000);
+var md5 = require('md5'),
+key = 'iwrupvqb',
+min = Number(process.argv[2] || 0),
+max = Number(process.argv[3] || 10000000);
 
 
 (function mine(md5, key, min, max) {
