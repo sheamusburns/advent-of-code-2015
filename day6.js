@@ -68,6 +68,7 @@ function LightGrid() {
 		var startY = parseInt(start[1]);
 		var endX = parseInt(end[0]);
 		var endY = parseInt(end[1]);
+		
 		for (var i = startX; i <= endX; i++){
 			for (var j = startY; j <= endY; j++) {
 				if (!that.grid[i][j]) {
@@ -112,8 +113,6 @@ function LightGrid() {
 				}
 			}
 		}
-
-
 	};
 	this.toggle = function(start, end) {
 		var startX = parseInt(start[0]);
@@ -126,6 +125,5 @@ function LightGrid() {
 				that.grid[i][j] = !that.grid[i][j];
 			}
 		}
-
 	};
 }
