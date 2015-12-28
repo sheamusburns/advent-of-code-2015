@@ -6,8 +6,6 @@ var values = {};
 var count = 0;
 var reWireNames = /[a-z]+/g;
 var reOperator = /([A-Z])\w+/g;
-var reDigit = /\d+/g;
-var reInit = /^\d+\s->\s[a-z]+/g;
 var reKey = /[a-z]+$/g;
 var reFormula = /^.*(?=\s->)/g;
 var operators = {
