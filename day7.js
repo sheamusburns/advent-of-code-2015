@@ -16,19 +16,31 @@ var operators = {
 	RSHIFT: '>>'
 };
 
-//prep values object for circIt()
-input.forEach(function(item, ind, array){
-	if (item.match(reFormula)[0] > -1) {
-		values[item.match(reKey)] = Number(item.match(reFormula)[0]);
-	} else if (item.match(reOperator)){
-		array[ind] = array[ind].replace(reOperator, operators[item.match(reOperator)[0]]);
-		values[item.match(reKey)[0]] = array[ind].match(reFormula)[0];	
-	} else {
-		values[item.match(reKey)[0]] = array[ind].match(reFormula)[0];
-	}	
-});
+circuitShift(2);
 
-circIt();
+function circuitShift(num) {
+	prepArr(input);
+	for (var i = 0; i < (num-1); i++){
+		prepArr(input, circIt());
+	}
+	circIt();
+}
+
+//prep values object for circIt()
+function prepArr (inputArr, startVal) {
+	(values !== {}) ? values = {} : values
+	inputArr.forEach(function(item, ind, array){
+		if (item.match(reFormula)[0] > -1) {
+			values[item.match(reKey)] = Number(item.match(reFormula)[0]);
+		} else if (item.match(reOperator)){
+			array[ind] = array[ind].replace(reOperator, operators[item.match(reOperator)[0]]);
+			values[item.match(reKey)[0]] = array[ind].match(reFormula)[0];	
+		} else {
+			values[item.match(reKey)[0]] = array[ind].match(reFormula)[0];
+		}	
+	});
+	values.b = (startVal) ? Number(startVal) : values.b;
+}
 
 function circIt(){
 	count = 0;
@@ -48,5 +60,6 @@ function circIt(){
 			: values[obj] = eval(values[obj]);
 		}
 	}
-	(count > 0) ? circIt() : console.log("a: %s", values.a)
+	(count > 0) ? circIt() : console.log("a: %s", values.a);
+	return values.a;
 }

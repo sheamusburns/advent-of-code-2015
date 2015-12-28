@@ -5,6 +5,7 @@
   "main": "day1.js",
   "dependencies": {
     "csv": "^0.4.6",
+    "md5": "^2.0.0",
     "prompt": "^0.2.14"
   },
   "devDependencies": {},
