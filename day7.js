@@ -31,10 +31,11 @@ input.forEach(function(item, ind, array){
 circIt();
 
 function circIt(){
-	count = 0
+	count = 0;
+	var wires;
 	for (obj in values) {
 		if (typeof values[obj] === 'string') {
-			var wires = values[obj].match(reWireNames);
+			wires = values[obj].match(reWireNames);
 			(wires && wires.length)
 			? function(){
 				count++
