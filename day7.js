@@ -26,7 +26,6 @@ function circuitShift(num) {
 	circIt();
 }
 
-//prep values object for circIt()
 function prepArr (inputArr, startVal) {
 	(values !== {}) ? values = {} : values
 	inputArr.forEach(function(item, ind, array){

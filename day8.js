@@ -2,9 +2,7 @@ var fs = require('fs');
 var csv = require('csv');
 var input = csv.stringify(fs.readFileSync('./day8Input.js', 'utf8')).options.split('\n');
 
-
-day8([1, 2]);
-
+day8([1,2]);
 
 function day8(parts){
 	var charCount = 0;
