@@ -1,6 +1,6 @@
 var fs = require('fs'),
 csv = require('csv'),
-input = csv.stringify(fs.readFileSync('./day5input.js', 'utf8')).options.split('\n'),
+input = csv.stringify(fs.readFileSync('./day05input.js', 'utf8')).options.split('\n'),
 cond4, cond5, part2Conditions, finArr;
 
 /*

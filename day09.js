@@ -1,6 +1,6 @@
 var fs = require('fs');
 var csv = require('csv');
-var input = csv.stringify(fs.readFileSync('./day9Input.js', 'utf8')).options.split('\n');
+var input = csv.stringify(fs.readFileSync('./day09Input.js', 'utf8')).options.split('\n');
 var regexLocation = /([A-Z])\w+/g;
 var regexDistance = /\d+/g
 var locations = {};

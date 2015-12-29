@@ -1,6 +1,6 @@
 var fs = require('fs');
 var csv = require('csv');
-var input = csv.stringify(fs.readFileSync('./day6input.js', 'utf8')).options.split('\n');
+var input = csv.stringify(fs.readFileSync('./day06Input.js', 'utf8')).options.split('\n');
 var lights = new LightGrid();
 var commands = ['turn on ', 'turn off ', 'toggle '];
 

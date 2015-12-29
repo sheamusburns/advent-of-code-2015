@@ -16,7 +16,7 @@ inputSchema = {
 }
 
 
-fs.readFile('./day2input.js', 'utf8', function(err, data){
+fs.readFile('./day02Input.js', 'utf8', function(err, data){
 	output = csv.stringify(data).options;
 	output = output.split('\n');
 	//console.log(output);

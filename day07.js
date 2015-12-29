@@ -1,6 +1,6 @@
 var fs = require('fs');
 var csv = require('csv');
-var input = csv.stringify(fs.readFileSync('./day7input.js', 'utf8')).options.split('\n');
+var input = csv.stringify(fs.readFileSync('./day07Input.js', 'utf8')).options.split('\n');
 
 var values = {};
 var count = 0;
