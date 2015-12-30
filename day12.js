@@ -1,10 +1,9 @@
 var fs = require('fs');
-var input = '';
-var data = fs.readFileSync('./day12Input.js', 'utf8');
-data = JSON.parse(data.split('\n').join(''));
+var input = fs.readFileSync('./day12Input.js', 'utf8');
+input = JSON.parse(data.split('\n').join(''));
 var numbers = [];
 
-crawlObj(data);
+crawlObj(input);
 addArr(numbers);
 
 function crawlObj(obj) {
