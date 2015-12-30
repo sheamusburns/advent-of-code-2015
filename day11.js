@@ -6,10 +6,9 @@ function counter(str, num) {
 	var count = 0;
 	var str = str;
 	var arr = str.split('');
-	var ind = arr.length-1;
-	var column = ind;
+	var column = arr.length-1;
 	var activeVal;
-	var goodPass = false;
+	var goodPass = 0;
 	var charStraights = (function(){
 		var tempArr = [];
 		allStraights = [];
