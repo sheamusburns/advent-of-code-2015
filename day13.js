@@ -18,7 +18,7 @@ input.forEach(function(item, ind, arr){
 	}
 });
 // this function adds me into the mix (part 2)
-// patchMeIn('Sheam-o', 0);
+//patchMeIn('Sheam-o', 0);
 arrangements = permRoundTable(names);
 findHappiness('max');
 
@@ -63,15 +63,16 @@ function permRoundTable(input) {
 	return permArr;
 }
 
-function patchMeIn(player, happVal) {
+function patchMeIn(player, happyVal) {
 		for (per in rules){
-			rules[per][player] = 0;
+			rules[per][player] = happyVal;
 		};
 		rules[player]={};
 		for (i in names) {
-			rules[player][names[i]] = happVal;
+			rules[player][names[i]] = happyVal;
 		}
 		names.push(player);
+		console.log(rules);
 }
 
 function setRules(line) {
