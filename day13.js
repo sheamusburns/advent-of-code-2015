@@ -1,6 +1,6 @@
 var fs = require('fs');
 var csv = require('csv');
-var input = csv.stringify(fs.readFileSync('./day13Input.js', 'utf8')).options.split('\n');;
+var input = csv.stringify(fs.readFileSync('./day13Input.js', 'utf8')).options.split('\n');
 var names = [];
 var arrangements = [];
 var permArr = [];
