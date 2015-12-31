@@ -12,7 +12,7 @@ var criteria = {
 	trees: 3,
 	cars: 2,
 	perfumes: 1,
-}
+};
 var sues = {};
 
 input.forEach(function(line, ind, arr){
