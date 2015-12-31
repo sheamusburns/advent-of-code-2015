@@ -19,20 +19,23 @@ input.forEach(function(item, ind, arr){
 
 /* generate combinations of tbs that add up to 100 */
 
-var a, b, c, d;
 var combos = [];
 
-for (a = 1; a < 101; a++){
-	for (b = 1; b < 101; b++) {
-		for (c = 1; c < 101; c++) {
-			for (d = 1; d < 101; d++) {
-				if ((a + b + c + d) === 100) {
-					combos.push([a, b, c, d]);
+(function(){
+	var a, b, c, d;
+	for (a = 1; a < 101; a++){
+		for (b = 1; b < 101; b++) {
+			for (c = 1; c < 101; c++) {
+				for (d = 1; d < 101; d++) {
+					if ((a + b + c + d) === 100) {
+						combos.push([a, b, c, d]);
+					}
 				}
 			}
 		}
 	}
-}
+})();
+
 
 combos.forEach(function(combo, ind, arr){
 	calcPoints(combo);
