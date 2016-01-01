@@ -6,26 +6,25 @@ var containers = [];
 var combos = [];
 var matches = [];
 var minMatch = [];
+var count = 0;
+var minCount = 0;
 
 input.forEach(function(line, ind, arr){
 	containers.push(Number(line));
 });
 
 combos = combinations(containers);
-var count = 0
-for (item in combos) {
+
+for (var item in combos) {
 	count = 0;
 	combo = combos[item];
 	for (i in combo) {
 		count += combo[i];
 	}
-	if (count === totEggnog){
-		matches.push(combos[item]);
-	}
+	if (count === totEggnog) matches.push(combos[item]);
 };
 
-var minCount = 0;
-for (i in matches){
+for (var i in matches){
 	var match = matches[i];
 	if (minCount === 0) {
 		minCount = match.length;
@@ -33,7 +32,7 @@ for (i in matches){
 		minCount = match.length;
 	}
 }
-for (i in matches){
+for (var i in matches){
 	if (matches[i].length === minCount){
 		minMatch.push(matches[i]);
 	}
@@ -72,6 +71,8 @@ function k_combinations(set, k) {
 		}
 		return combs;
 	}
+	
+	// Assert {1 < k < set.length}
 	
 	combs = [];
 	for (i = 0; i < set.length - k + 1; i++) {
