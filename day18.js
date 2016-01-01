@@ -2,12 +2,11 @@ var fs = require('fs');
 var csv = require('csv');
 var input = csv.stringify(fs.readFileSync('./day18Input.js', 'utf8')).options.split('\n');
 var inputArr = [];
-var keyArr = [];
 input.forEach(function(obj){
 	inputArr.push(obj.split(''));
 });
 var grid = {};
-var neighborsDict = {};
+var tempGrid = {};
 var value, neighbors;
 var gridCount = {
 	on: 0,
@@ -15,103 +14,69 @@ var gridCount = {
 };
 
 inputArr.reduce(function(pre, curr, ind, arr){
+	grid[pre] = {};
 	curr.reduce(function(prev, curre, inde, arra){
-		grid[pre + '-' + inde] = curre;
-		keyArr.push([pre + '-' + inde, curre]);
+		grid[pre][inde] = {
+			val: curre, 
+			neighbors: (function(r, c){
+				row = r, col = c, tempArr = [], origin = [r, c]
+				// console.log('[' + row + '][' + col + ']');
+				for (var i = row - 1; i < row + 2; i ++){
+					for (var j = col - 1; j < col + 2; j++){
+						if  (i >= 0 && i <= 99 && j >= 0 && j <= 99){
+							if ((i + ',' + j) !== (row + ',' + col)){
+								tempArr.push('grid' + '[' + i + '][' + j+ '].val');
+							}
+						}
+					}
+				}
+				return tempArr;
+			})(pre, inde)
+		} 
 		return pre+1;
 	}, 0)
 	return pre+1;
 }, 0);
 
-keyArr.reduce(function(previous, current, index, array){
-	neighborKeys(current[0]);
-	return previous + 1;
-}, 0)
-console.log(neighborsDict);
-console.log(neighborsDict['01-01']);
-// for (i in grid) {
-// 	neighborKeys(i.match(/\d+/g)[0], i.match(/\d+/g)[1])
-// };
+tempGrid = grid;
+// console.log(tempGrid);
+cycle(4);
 
-// var r, c;
-// inputArr.forEach(function(item, index){
-// 	outputArr[index] = item.map(function(curr, ind, arr){
-// 		r = index, c = ind;
-// 		neighArr = neighborsDict[r + '-' + c].slice();
-// 		for (obj in neighArr){ {
 
-// 		}
-
-// 		}
-// 	});
-// });
-// console.log(keyArr);
-// cycle(1);
-// console.log('on: %s\noff: %s', gridCount.on, gridCount.off);
-// console.log(getNeighbors(0, 0));
-
-function cycle(numSteps){
-	for (var i = 0; i < numSteps; i++){
-		for (var i in grid) {
-			value = grid[i];
-			neighbors = neighborsDict[i.match(/\d+/g)[0], i.match(/\d+/g)[1]];
-			if (value === '#') {
-				if (neighbors.filter(function(val){
-					return val === '#';
-				}).length === 2 || neighbors.filter(function(val){
-					return val === '#';
-				}).length === 3) {
-				value = '.';
-				} 
-			} else if (value === '.') {
-				if (neighbors.filter(function(val){
-					return val === '#';
-				}).length === 3){
-				value = '#';
+function cycle(numTimes){
+	for (var nt = 0; nt < numTimes; nt++){
+		gridCount.on = 0;
+		gridCount.off = 0;
+		for (key in grid) {
+			row = grid[key];
+			for (item in row){
+				value = row[item].val;
+				tempVal = value;
+				neighbors = row[item].neighbors;
+				tempArr = neighbors.map(function(thing){
+					return eval(thing);
+				});
+				if (tempVal === '#') {
+					if (tempArr.filter(function(val){
+						return val === '#';
+					}).length === 2 || tempArr.filter(function(val){
+						return val === '#';
+					}).length === 3) {
+					tempval = '.';
+					} 
+				} else if (tempVal === '.') {
+					if (tempArr.filter(function(val){
+						return val === '#';
+					}).length === 3){
+					tempVal = '#';
+					}
 				}
-			}
-			(value === '#') ? gridCount.on++ : gridCount.off++;
-		}
-	}
-}
-
-
-function getVal(row, col){
-	return grid[row + '-' + col];
-}
-
-function neighborKeys(str){
-	row = str.match(/\d+/g)[0];
-	col = str.match(/\d+/g)[1];
-	var tempArr = [];
-	for (var i = row - 1; i < row + 2; i ++){
-		if (i >= 0 && i <= 100) {
-			for (var j = col - 1; j < col + 2; j++){
-				if  (j >= 0 && j <= 100 && (i+j) !== (row+col)){
-					tempArr.push(row + '-' + col);
-				}
+				(tempVal === '#') ? gridCount.on++ : gridCount.off++;
+				tempGrid[key][item].val = tempVal;
+				// console.log('2', tempGrid[key][item].val);
 			}
 		}
+		grid = tempGrid;
+		console.log('run # %s\non: %s\noff: %s', nt+1, gridCount.on, gridCount.off);
 	}
-	neighborsDict[row + '-' + col] = tempArr;
 }
-
-function lookupNeighbors(row, col){
-	return neighborsDict[row + '-' + col];
-}
-
-
-function getNeighbors(row, col){
-	var tempArr = [];
-	for (var i = row - 1; i < row + 2; i ++){
-			for (var j = col - 1; j < col + 2; j++){
-				if (i >= 0 && i <= 100 && j >= 0 && j <= 100 && (i+j) !== (row+col)){
-					tempArr.push(getVal(i, j));
-				}
-			}
-	}
-	return tempArr;
-}
-
-
-
