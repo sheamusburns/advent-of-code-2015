@@ -86,7 +86,7 @@ function cycle(numTimes){
 			for (item in row){
 				value = row[item].val;
 				tempVal = value;
-				neighVals = row[item].neighborVals
+				neighVals = row[item].neighborVals;
 				if (tempVal === '#') {
 					if (neighVals.filter(function(val){
 						return val === '#';
