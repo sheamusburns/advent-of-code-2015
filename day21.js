@@ -1,6 +1,7 @@
 
 var costArr = [];
 var comboCost = 0;
+
 var boss = {
 	hitPoints: 104,
 	damage: 8,
@@ -33,12 +34,12 @@ var rings = {
 	defense2: new Ring(40, 0, 2),
 	defense3: new Ring(80, 0, 3)
 };
+
 var ringCombos = [];
 for (item in Object.keys(rings)) {
 	ringCombos.push([Object.keys(rings)[item]]);
 }
 ringCombos = ringCombos.concat(k_combinations(Object.keys(rings), 2));
-// console.log(ringCombos);
 
 console.log('testing 1 weapon');
 for (i in weapons){
@@ -47,7 +48,6 @@ for (i in weapons){
 	buySupplies([weapons[i]]);
 	testArsenal();
 }
-
 console.log('testing 1 weapon and 1 armor');
 for (i in weapons){
 	for (j in armor) {
@@ -57,7 +57,19 @@ for (i in weapons){
 		testArsenal();
 	}
 }
-
+console.log('testing 1 weapon and combo rings');
+for (i in weapons){
+	for (k in ringCombos){
+		comboCost = 0;
+		reset();
+		tempRings = [];
+		for (r in ringCombos[k]){
+			tempRings.push(rings[ringCombos[k][r]]);
+		}
+		buySupplies([weapons[i]].concat(tempRings));
+		testArsenal();
+	}
+}
 console.log('testing 1 weapon, 1 armor, and combo rings');
 for (i in weapons){
 	for (j in armor) {
@@ -68,22 +80,24 @@ for (i in weapons){
 			for (r in ringCombos[k]){
 				tempRings.push(rings[ringCombos[k][r]]);
 			}
-			console.log(tempRings)
 			buySupplies([weapons[i], armor[j]].concat(tempRings));
 			testArsenal();
 		}
 	}
 }
 
-/* // Part 1
+/*  // Part 1
 costArr.sort(function(a,b){
 	return a-b;
-});*/
+});
+console.log('min cost for player win', costArr[0])
+*/
+
 // Part 2
 costArr.sort(function(a,b){
 	return b-a
 })
-console.log(costArr[0])
+console.log('max cost for player lose', costArr[0])
 
 
 
@@ -91,29 +105,34 @@ function testArsenal() {
 	if (boss.hitPoints > 0 && player.hitPoints > 0) {
 		hitBoss();
 		if (boss.hitPoints <= 0) {
-			// Part 1
-			console.log('player wins :) ', comboCost);
+			// console.log('player wins :) ', comboCost);
+			// Part 1 
 			// costArr.push(comboCost);		
+			return;
 		}
 		hitPlayer();
 		if (player.hitPoints <= 0) {
+			// console.log('boss wins :( --------', comboCost);
 			// Part 2
-			console.log('player dies :( --------', comboCost);
-			costArr.push(comboCost);
+			costArr.push(comboCost);	
 		} 
 		
 		testArsenal();
 	}
 }
 function hitBoss(){
-	if (boss.armor < player.damage) {
+	if (player.damage - boss.armor > 0) {
 		boss.hitPoints = boss.hitPoints - (player.damage - boss.armor);
-	} else boss.hitPoints--;
+	} else {
+		boss.hitPoints = boss.hitPoints - 1;
+	}
 }
 function hitPlayer(){
-	if (player.armor < boss.damage) {
+	if (boss.damage - player.armor > 0) {
 		player.hitPoints = player.hitPoints - (boss.damage - player.armor);
-	} else boss.hitPoints--;
+	} else {
+		player.hitPoints = player.hitPoints - 1;
+	}
 }
 function reset(){
 	boss = {
@@ -136,7 +155,6 @@ function buySupplies(supplies){
 		player.damage += supplyItem.damage;
 		player.armor += supplyItem.armor;
 	}
-
 }
 
 function Supplies (cost, damage, armor){
