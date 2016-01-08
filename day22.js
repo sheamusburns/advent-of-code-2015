@@ -44,8 +44,9 @@ var availSpells = Object.keys(spells).slice();
 var activeSpells = [];
 
 
-playerTurn()
-
+playerTurn();
+bossTurn();
+console.log(activeSpells);
 
 function playerTurn() {
 	
@@ -59,14 +60,21 @@ function playerTurn() {
 		if (availSpells.length > 0) {
 			spell = availSpells.shift();
 			if (!spell.duration) availSpells.push(spell)
-			else activeSpells.push(spell);
+			else activeSpells.push([spell, spells[spell].effect.duration]);
 		}
 		return spell
 	}
 	function castSpell(spell) {
 		console.log('casting', spell);
 		player.mana -= spells[spell].cost;
-		(spells[spell].damage || spells[spell].effect) ? boss.hitPoints -= spells[spell].damage : boss.hitPoints -= spells[spell].effect.damage;
+		if (availSpells.indexOf(spell) > 0) {
+			boss.hitPoints -= spells[spell].damage;
+		}
+		for (i in activeSpells){
+			 active = activeSpells[i];
+			 (spells[active].damage || spells[active].effect) ? boss.hitPoints -= spells[active].damage : boss.hitPoints -= spells[active].effect.damage;
+		}
+		
 		printStats();
 	}
 }
